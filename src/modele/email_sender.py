@@ -1,17 +1,22 @@
 import random
 import smtplib
 from typing import List
+from google.cloud import storage
 
 from pandas import DataFrame
 
 from recommendation import top_3_reco
-from random_transaction import transaction_data
+from random_transaction import user_id
+
+client = storage.Client()
+bucket = client.get_bucket('bucket_hm')
 
 def send_email(customer_id: str, articles_ids: List[int], predicted_reco: DataFrame):
     # retrieve the necessary information
-    customer_info = {"firstname": "", "lastname": "Jean"}
-    reco_products_info = [{"product_name": "abc", "img_url": ""}, {"product_name": "abc", "img_url": ""}]
-    pass
+    customer_info = shopping-cart-publisher.src.random_transaction.user_id #requete sql?
+    #blob = bucket.blob('articles_image/0../image_id.jpg')
+    reco_products_info = [{"product_name": "abc", "img_url": blob}, {"product_name": "abc", "img_url": blob}]
+
 
 # user_id = random.choice(list(transaction_data.keys()))
 # user = transaction_data[user_id]
