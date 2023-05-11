@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="utf-8">
+</head>
+<body>
+    <div id="email_content">
+        <h1>Bonjour {{ user.firstname }} {{ user.lastname }},</h1>
+         {% for product in products %}
+            <div class="image">
+                 <span>{{product.name}}</span>
+                <img src="{{product.url}}" />
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
