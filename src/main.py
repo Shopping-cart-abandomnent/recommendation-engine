@@ -2,7 +2,7 @@ import json
 
 from google.cloud import bigquery
 
-from src.email_sender import send_email
+from email_sender import send_email
 
 client = bigquery.Client()
 
