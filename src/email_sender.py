@@ -14,7 +14,7 @@ client = bigquery.Client()
 table_id = "valued-decker-380221.donnees_hm.clients"
 
 EMAIL_ADDRESS = "shoppingrecommendation.esme@gmail.com"
-PASSWORD = "esme2023"
+PASSWORD = "owjhybpyeqlmqysl"
 
 def generate_template(filepath: str, user: dict, products: List[dict]) -> str:
     with open(filepath) as file:
