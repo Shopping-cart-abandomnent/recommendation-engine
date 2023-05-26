@@ -29,16 +29,42 @@ def get_articles_in_cart(products_ids):
     return articles_in_cart
 
 
+# def retrieve_user_info(user_id):
+#     return {"firstname": "Jean", "lastname": "De Jaeger"}
+# def retrieve_reco_products_info(reco_df):
+#     return [
+#         {"name": "Chaussette Superman", "url": "http://this_is_product1_url.com"},
+#         {"name": "T-Shirt", "url": "http://this_is_product2_url.com"}
+#     ]
+
 def retrieve_user_info(user_id):
-    return {"firstname": "Jean", "lastname": "De Jaeger"}
+    query = f"""
+        SELECT firstname, lastname
+        FROM `valued-decker-380221.donnees_hm.clients`
+        WHERE user_id = {user_id} """
+    user_info = client.query(query).to_dataframe().iloc[0]
+    return {"firstname": user_info["firstname"], "lastname": user_info["lastname"]}
 
 
-def retrieve_reco_products_info(reco_df):
-    return [
-        {"name": "Chaussette Superman", "url": "http://this_is_product1_url.com"},
-        {"name": "T-Shirt", "url": "http://this_is_product2_url.com"}
-    ]
+def retrieve_reco_products_info(reco_df, recommendation=None):
+    product_ids = recommendation.top_3_reco["product_id"].tolist()
+    query = f"""
+        SELECT name, url
+        FROM `valued-decker-380221.donnees_hm.articles`
+        WHERE product_id IN ({", ".join(str(product_id) for product_id in product_ids)}) """
+    reco_products_info = client.query(query).to_dataframe()
+    reco_products_info = reco_products_info.to_dict(orient="records")
+    return reco_products_info
 
+
+articles_in_cart = get_articles_in_cart(products_ids)
+user_info = retrieve_user_info(user_id)
+reco_df = articles_in_cart
+reco_products_info = retrieve_reco_products_info(reco_df)
+
+print("Articles in cart:", articles_in_cart)
+print("User info:", user_info)
+print("Reco products info:", reco_products_info)
 
 def receive_msg(event, context):
     """
