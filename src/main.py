@@ -1,14 +1,10 @@
 import base64
 import json
-import os
+
+from google.cloud import bigquery
 
 from email_sender import send_email
-# Définition de la variable d'environnement GOOGLE_APPLICATION_CREDENTIALS
-# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "auth.json"
-from src.recommendation import predict_recommendations
-
-# client = bigquery.Client()
-from google.cloud import bigquery
+from recommendation import predict_recommendations
 
 project_id = "valued-decker-380221"
 client = bigquery.Client(project=project_id)
@@ -52,10 +48,12 @@ def receive_msg(event, context):
         "articles_id": []
     }
     """
-    received_msg_json = base64.b64decode(event['data']).decode('utf-8')
+    received_msg_json = base64.b64decode(event['data'])
     message = json.loads(received_msg_json)
     user_id = message["user_id"]
     articles_ids = message["articles_id"]
+    print(f"user id: {user_id}")
+    print(f"articles ids: {articles_ids}")
 
     products_in_carts = get_articles_in_cart(articles_ids)
     print("Info about products in cart acquired")
@@ -70,14 +68,14 @@ def receive_msg(event, context):
     products = retrieve_reco_products_info(predicted_reco)
     send_email(user, products)
 
-    # Write the recommendation in a new table
-    # DB-admin -> create recommendations table
-
-
-test_msg = """
-{
-    "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae", 
-    "articles_id": [802024001, 736489021, 892915001]
-}
-"""
-receive_msg(test_msg)
+# test_msg = """
+# {
+#     "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
+#     "articles_id": [802024001, 736489021, 892915001]
+# }
+# """
+# sample_data = {
+#     "@type": None,
+#     "data": base64.b64encode(test_msg.encode('ascii'))
+# }
+# receive_msg(sample_data, None)

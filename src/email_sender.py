@@ -17,6 +17,9 @@ EMAIL_ADDRESS = "shoppingrecommendation.esme@gmail.com"
 PASSWORD = "owjhybpyeqlmqysl"
 
 
+# passwordESME2023
+
+
 def generate_template(filepath: str, user: dict, products: List[dict]) -> str:
     with open(filepath) as file:
         template = Template(file.read())
@@ -26,7 +29,7 @@ def generate_template(filepath: str, user: dict, products: List[dict]) -> str:
 
 def send_email(customer: dict, predicted_reco: List[dict]):
     email_subject = "Nouveaux produits recommandés pour vous"
-    template_path = "src/template/email_template.html"
+    template_path = "template/email_template.html"
     email_body = generate_template(template_path, customer, predicted_reco)
 
     message = Mail(

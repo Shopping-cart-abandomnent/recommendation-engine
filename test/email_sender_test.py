@@ -1,4 +1,4 @@
-from src.email_sender import generate_template
+from email_sender import generate_template
 
 
 def test_generate_template():
