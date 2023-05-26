@@ -1,8 +1,10 @@
-#pip install Jinja2
+# pip install Jinja2
+
+import smtplib
 
 from jinja2 import Environment, FileSystemLoader
-import smtplib
 from template.mime.text import MIMEText
+
 
 def send_email(sender_email, sender_password, receiver_email, subject, heading, content):
     # Configurer le système de fichiers pour les modèles Jinja2

@@ -1,10 +1,10 @@
-import random
-import smtplib
-import ssl
+import os
 from typing import List
+
 from google.cloud import storage, bigquery
-from jinja2 import Template, FileSystemLoader, Environment
-from pandas import DataFrame
+from jinja2 import Template
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 storage_client = storage.Client()
 bucket = storage_client.get_bucket('bucket_hm')
@@ -16,10 +16,11 @@ table_id = "valued-decker-380221.donnees_hm.clients"
 EMAIL_ADDRESS = "shoppingrecommendation.esme@gmail.com"
 PASSWORD = "owjhybpyeqlmqysl"
 
+
 def generate_template(filepath: str, user: dict, products: List[dict]) -> str:
     with open(filepath) as file:
         template = Template(file.read())
-    html_content = template.render(user=user, products= products)
+    html_content = template.render(user=user, products=products)
     return html_content
 
 
@@ -27,10 +28,17 @@ def send_email(customer: dict, predicted_reco: List[dict]):
     email_subject = "Nouveaux produits recommandés pour vous"
     template_path = "src/template/email_template.html"
     email_body = generate_template(template_path, customer, predicted_reco)
-    sender_email = EMAIL_ADDRESS
-    receivers = EMAIL_ADDRESS
 
-    context = ssl.create_default_context()
-    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
-        server.login(EMAIL_ADDRESS, PASSWORD)
-        server.sendmail(sender_email, receivers, f"Subject: {email_subject}\n\n{email_body}")
+    message = Mail(
+        from_email=EMAIL_ADDRESS,
+        to_emails=EMAIL_ADDRESS,
+        subject=email_subject,
+        html_content=email_body)
+    try:
+        sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+    except Exception as e:
+        print(e.message)

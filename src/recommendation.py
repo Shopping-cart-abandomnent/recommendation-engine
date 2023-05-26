@@ -1,7 +1,3 @@
-from google.cloud import bigquery
-import pandas as pd
-import random
-
 # Initialize BigQuery client
 from pandas import DataFrame
 
@@ -33,6 +29,6 @@ def predict_recommendations(all_articles: DataFrame, products_in_carts: DataFram
     return top_3_reco
 
 #
-#print("\nRecommended products :")
-#for _, product in all_articles.iterrows():
+# print("\nRecommended products :")
+# for _, product in all_articles.iterrows():
 #    print("- " + product["prod_name"])

@@ -7,7 +7,7 @@ def test_generate_template():
         {"name": "Chaussette Superman", "url": "http://this_is_product1_url.com"},
         {"name": "T-Shirt", "url": "http://this_is_product2_url.com"}
     ]
-    path = "D:/Ingé 2/Projet/recommendation-engine/test/template/email_template.html"
+    path = "test/template/email_template.html"
     templated_body = generate_template(path, user, products)
     assert "<h1>Bonjour Jean De Jaeger,</h1>" in templated_body
     assert "<span>Chaussette Superman</span>" in templated_body

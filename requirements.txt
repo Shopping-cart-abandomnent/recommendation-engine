@@ -1,7 +1,8 @@
 google-cloud-bigquery==3.10.0
 Faker==18.6.2
-pandas==2.0.1
+pandas
 db-dtypes == 1.1.1
 google-cloud-storage
 Jinja2
 pytest
+sendgrid

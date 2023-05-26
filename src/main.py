@@ -1,17 +1,17 @@
-import json
-from google.cloud import bigquery
-from email_sender import send_email
 import os
-from google.cloud import storage
+
+from email_sender import send_email
 
 # Définition de la variable d'environnement GOOGLE_APPLICATION_CREDENTIALS
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:/Users/mgbt9/Desktop/ESME/4eANNEE/PROJET/projet/valued-decker-380221-5192a3c312b0.json'
+#os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = "auth.json"
+os.environ["SENDGRID_API_KEY"] = "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"
 
-#client = bigquery.Client()
+# client = bigquery.Client()
 from google.cloud import bigquery
 
 project_id = "valued-decker-380221"
 client = bigquery.Client(project=project_id)
+
 
 def get_articles_data():
     query = """
@@ -30,7 +30,6 @@ def get_articles_in_cart(products_ids):
     """
     articles_in_cart = client.query(query).to_dataframe()
     return articles_in_cart
-
 
 
 def receive_msg(msg):
@@ -55,7 +54,8 @@ def receive_msg(msg):
     send_email(user, products)
 
     # Write the recommendation in a new table
-        # DB-admin -> create recommendations table
+    # DB-admin -> create recommendations table
+
 
 test_msg = """
 {
