@@ -1,11 +1,17 @@
 import json
+from google.cloud import bigquery
+from email_sender import send_email
+import os
+from google.cloud import storage
 
+# Définition de la variable d'environnement GOOGLE_APPLICATION_CREDENTIALS
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'C:/Users/mgbt9/Desktop/ESME/4eANNEE/PROJET/projet/valued-decker-380221-5192a3c312b0.json'
+
+#client = bigquery.Client()
 from google.cloud import bigquery
 
-from email_sender import send_email
-
-client = bigquery.Client()
-
+project_id = "valued-decker-380221"
+client = bigquery.Client(project=project_id)
 
 def get_articles_data():
     query = """
