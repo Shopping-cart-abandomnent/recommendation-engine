@@ -83,14 +83,14 @@ def receive_msg(event, context):
     products = retrieve_reco_products_info(predicted_reco)
     send_email(user, products)
 
-test_msg = """
-{
-    "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
-    "articles_id": [802024001, 736489021, 892915001]
-}
-"""
-sample_data = {
-    "@type": None,
-    "data": base64.b64encode(test_msg.encode('ascii'))
-}
-receive_msg(sample_data, None)
+# test_msg = """
+# {
+#     "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
+#     "articles_id": [802024001, 736489021, 892915001]
+# }
+# """
+# sample_data = {
+#     "@type": None,
+#     "data": base64.b64encode(test_msg.encode('ascii'))
+# }
+# receive_msg(sample_data, None)
