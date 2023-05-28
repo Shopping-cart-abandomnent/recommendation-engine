@@ -38,12 +38,12 @@ def get_articles_in_cart(products_ids):
 #     ]
 
 def retrieve_user_info(user_id):
-    query = f"""
-        SELECT firstname, lastname
+    query = f'''
+        SELECT first_name, last_name
         FROM `valued-decker-380221.donnees_hm.clients`
-        WHERE user_id = {user_id} """
+        WHERE id = "{user_id}"'''
     user_info = client.query(query).to_dataframe().iloc[0]
-    return {"firstname": user_info["firstname"], "lastname": user_info["lastname"]}
+    return {"firstname": user_info["first_name"], "lastname": user_info["last_name"]}
 
 def retrieve_reco_products_info(reco_df, recommendation=None):
     product_ids = recommendation.top_3_reco["product_id"].tolist()
@@ -83,14 +83,14 @@ def receive_msg(event, context):
     products = retrieve_reco_products_info(predicted_reco)
     send_email(user, products)
 
-#test_msg = """
-# {
-#     "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
-#     "articles_id": [802024001, 736489021, 892915001]
-# }
-# """
-#sample_data = {
-#     "@type": None,
-#     "data": base64.b64encode(test_msg.encode('ascii'))
-# }
-#receive_msg(sample_data, None)
+test_msg = """
+{
+    "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
+    "articles_id": [802024001, 736489021, 892915001]
+}
+"""
+sample_data = {
+    "@type": None,
+    "data": base64.b64encode(test_msg.encode('ascii'))
+}
+receive_msg(sample_data, None)
