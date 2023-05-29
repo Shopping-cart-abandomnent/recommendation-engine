@@ -55,31 +55,31 @@ def retrieve_reco_products_info(reco_df):
 #     reco_products_info = client.query(query).to_dataframe()
 #     reco_products_info = reco_products_info.to_dict(orient="records")
 #     return reco_products_info
-
-def get_image_paths(article_ids):
-    image_paths = []
-    bucket_name = 'bucket_hm'
-    base_folder = 'articles_image'
-
-    for article_id in article_ids:
-        article_id_str = str(article_id)
-        folder_path = article_id_str[:3]
-        image_filename = article_id_str + '.jpg'
-        image_path = f'{base_folder}/{folder_path}/{image_filename}'
-
-        bucket = client2.get_bucket(bucket_name)
-        blob = bucket.blob(image_path)
-        expiration = datetime.utcnow() + timedelta(hours=1)
-        image_url = blob.generate_signed_url(expiration=expiration)
-
-        image_paths.append(image_url)
-
-    return image_paths
-
-top_3_reco = [620036002,351098028,685601036]
-image_paths = get_image_paths(top_3_reco)
-for image_path in image_paths:
-    print(image_path)
+#
+# def get_image_paths(article_ids):
+#     image_paths = []
+#     bucket_name = 'bucket_hm'
+#     base_folder = 'articles_image'
+#
+#     for article_id in article_ids:
+#         article_id_str = str(article_id)
+#         folder_path = article_id_str[:3]
+#         image_filename = article_id_str + '.jpg'
+#         image_path = f'{base_folder}/{folder_path}/{image_filename}'
+#
+#         bucket = client2.get_bucket(bucket_name)
+#         blob = bucket.blob(image_path)
+#         expiration = datetime.utcnow() + timedelta(hours=1)
+#         image_url = blob.generate_signed_url(expiration=expiration)
+#
+#         image_paths.append(image_url)
+#
+#     return image_paths
+#
+# top_3_reco = [620036002,351098028,685601036]
+# image_paths = get_image_paths(top_3_reco)
+# for image_path in image_paths:
+#     print(image_path)
 
 def receive_msg(event, context):
     """
