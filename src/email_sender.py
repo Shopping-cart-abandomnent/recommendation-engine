@@ -37,6 +37,8 @@ def send_email(customer: dict, predicted_reco: List[dict]):
         to_emails=EMAIL_ADDRESS,
         subject=email_subject,
         html_content=email_body)
+    message.encoding = 'utf-8'
+
     try:
         sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
         response = sg.send(message)
