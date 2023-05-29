@@ -30,31 +30,31 @@ def get_articles_in_cart(products_ids):
     return articles_in_cart
 
 
-def retrieve_user_info(user_id):
-     return {"firstname": "Jean", "lastname": "De Jaeger"}
-def retrieve_reco_products_info(reco_df):
-     return [
-         {"name": "Chaussette Superman", "url": "http://this_is_product1_url.com"},
-         {"name": "T-Shirt", "url": "http://this_is_product2_url.com"}
-     ]
-#
 # def retrieve_user_info(user_id):
-#     query = f'''
-#         SELECT first_name, last_name
-#         FROM `valued-decker-380221.donnees_hm.clients`
-#         WHERE id = "{user_id}"'''
-#     user_info = client.query(query).to_dataframe().iloc[0]
-#     return {"firstname": user_info["first_name"], "lastname": user_info["last_name"]}
-#
-# def retrieve_reco_products_info(top_3_reco, recommendation=None):
-#     product_ids = recommendation.top_3_reco["product_id"].tolist()
-#     query = f"""
-#         SELECT prod_name
-#         FROM `valued-decker-380221.donnees_hm.articles`
-#         WHERE article_id IN ({", ".join(str(product_id) for product_id in product_ids)}) """
-#     reco_products_info = client.query(query).to_dataframe()
-#     reco_products_info = reco_products_info.to_dict(orient="records")
-#     return reco_products_info
+#      return {"firstname": "Jean", "lastname": "De Jaeger"}
+# def retrieve_reco_products_info(reco_df):
+#      return [
+#          {"prod_name": "Chaussette Superman"},
+#          {"prod_name": "T-Shirt"}
+#      ]
+
+def retrieve_user_info(user_id):
+    query = f'''
+        SELECT first_name, last_name
+        FROM `valued-decker-380221.donnees_hm.clients`
+        WHERE id = "{user_id}"'''
+    user_info = client.query(query).to_dataframe().iloc[0]
+    return {"firstname": user_info["first_name"], "lastname": user_info["last_name"]}
+
+def retrieve_reco_products_info(top_3_reco, recommendation=None):
+    product_ids = recommendation.top_3_reco["product_id"].tolist()
+    query = f"""
+        SELECT prod_name
+        FROM `valued-decker-380221.donnees_hm.articles`
+        WHERE article_id IN ({", ".join(str(product_id) for product_id in product_ids)}) """
+    reco_products_info = client.query(query).to_dataframe()
+    reco_products_info = reco_products_info.to_dict(orient="records")
+    return reco_products_info
 
 def get_image_paths(article_ids):
     image_paths = []
@@ -109,14 +109,14 @@ def receive_msg(event, context):
     products = retrieve_reco_products_info(predicted_reco)
     send_email(user, products)
 
-test_msg = """
- {
-     "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
-     "articles_id": [620036002,351098028,685601036]
- }
- """
-sample_data = {
-     "@type": None,
-     "data": base64.b64encode(test_msg.encode('ascii'))
- }
-receive_msg(sample_data, None)
+# test_msg = """
+#  {
+#      "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
+#      "articles_id": [620036002,351098028,685601036]
+#  }
+#  """
+# sample_data = {
+#      "@type": None,
+#      "data": base64.b64encode(test_msg.encode('ascii'))
+#  }
+# receive_msg(sample_data, None)
