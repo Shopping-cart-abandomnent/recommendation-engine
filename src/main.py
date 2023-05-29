@@ -45,15 +45,16 @@ def retrieve_user_info(user_id):
     user_info = client.query(query).to_dataframe().iloc[0]
     return {"firstname": user_info["first_name"], "lastname": user_info["last_name"]}
 
-def retrieve_reco_products_info(reco_df, recommendation=None):
+def retrieve_reco_products_info(top_3_reco, recommendation=None):
     product_ids = recommendation.top_3_reco["product_id"].tolist()
     query = f"""
-        SELECT name, url
+        SELECT prod_name
         FROM `valued-decker-380221.donnees_hm.articles`
         WHERE product_id IN ({", ".join(str(product_id) for product_id in product_ids)}) """
     reco_products_info = client.query(query).to_dataframe()
     reco_products_info = reco_products_info.to_dict(orient="records")
     return reco_products_info
+
 
 def receive_msg(event, context):
     """
