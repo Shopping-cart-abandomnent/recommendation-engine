@@ -6,7 +6,7 @@ from google.cloud import storage
 
 from email_sender import send_email
 from recommendation import predict_recommendations
-from src.utils import get_image_path
+from utils import get_image_path
 
 project_id = "valued-decker-380221"
 client = bigquery.Client(project=project_id)
@@ -82,14 +82,14 @@ def receive_msg(event, context):
     send_email(user, products)
 
 
-test_msg = """
- {
-     "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
-     "articles_id": [620036002,351098028,685601036]
- }
- """
-sample_data = {
-    "@type": None,
-    "data": base64.b64encode(test_msg.encode('ascii'))
-}
-receive_msg(sample_data, None)
+# test_msg = """
+#  {
+#      "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
+#      "articles_id": [620036002,351098028,685601036]
+#  }
+#  """
+# sample_data = {
+#     "@type": None,
+#     "data": base64.b64encode(test_msg.encode('ascii'))
+# }
+# receive_msg(sample_data, None)
