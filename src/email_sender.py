@@ -46,7 +46,5 @@ def send_email(customer: dict, predicted_reco: List[dict]):
         response = sg.send(message)
         print(response.status_code)
         print(response.body)
-        print(response.headers)
     except Exception as e:
-        print(str(e))
-#        print(e.message)
+        print(e.message)
