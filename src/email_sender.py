@@ -18,9 +18,6 @@ EMAIL_ADDRESS = "shoppingrecommendation.esme@gmail.com"
 PASSWORD = "owjhybpyeqlmqysl"
 
 
-# passwordESME2023
-
-
 def generate_template(filepath: str, user: dict, products: List[dict]) -> str:
     with open(filepath, 'r', encoding='utf-8') as file:
         template = Template(file.read())
@@ -34,11 +31,16 @@ def send_email(customer: dict, predicted_reco: List[dict]):
     template_path = "template/email_template.html"
     email_body = generate_template(template_path, customer, predicted_reco)
 
+    with open("template/style.css", "r") as css_file:
+        css_content = css_file.read()
+
+    email_body_with_css = email_body.replace("</head>", f"<style>{css_content}</style></head>")
+
     message = Mail(
         from_email=EMAIL_ADDRESS,
         to_emails=EMAIL_ADDRESS,
         subject=email_subject,
-        html_content=email_body)
+        html_content=email_body_with_css)
     message.encoding = 'utf-8'
 
     try:
