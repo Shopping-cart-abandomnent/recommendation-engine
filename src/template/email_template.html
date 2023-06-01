@@ -12,10 +12,12 @@
         suggérer quelques produits similaires qui pourraient également vous plaire.<br>
         Ci-dessous, vous trouverez une liste de produits que nous avons sélectionnés pour vous :</p>
 
-    <div class="product_list" style="margin-top: 20px; border: 1px solid #ccc; border-radius: 3px;">
+    <div class="product_list" style="margin-top: 20px; border: 1px solid #ccc; border-radius: 3px; display: flex; justify-content: center;">
         {% for product in products %}
-            <h1>{{ product.prod_name }}</h1>
-            <img src="{{ product_images[loop.index0] }}" alt="{{ product.prod_name }}" style="height: auto; display: block; margin-top: 20px; margin-left: auto; margin-right: auto;">
+            <div style="align-items: center; margin-right: 20px;">
+                <img src="{{ product_images[loop.index0] }}" alt="{{ product.prod_name }}" style="max-width: 200px; max-height: 200px; display: block; margin-bottom: 10px;">
+                <p style="font-weight: bold; margin-bottom: 5px;">{{ product.prod_name }}</p>
+            </div>
         {% endfor %}
     </div>
 
@@ -28,8 +30,7 @@
         L'équipe de votre entreprise</p>
 
     <img src="https://th.bing.com/th/id/R.fd105f89e864609a4c031d37692cb401?rik=CfzljBJEsw%2boXg&riu=http%3a%2f%2flogos-download.com%2fwp-content%2fuploads%2f2016%2f04%2fHM_logo_logotype_emblem.png&ehk=5fQmPrrL6R7qtvQNSKiyTwcJXhVzW0rbc%2bjRGiVQBD8%3d&risl=&pid=ImgRaw&r=0"
-         alt="Exemple d'image" style="max-width: 200px; height: auto; display: block; margin-top: 20px; margin-left: auto; margin-right: auto;">
-    </div>
+         alt="HM logo" style="max-width: 200px; height: auto; display: block; margin-top: 20px; margin-left: auto; margin-right: auto;">
 </div>
 </body>
 </html>
