@@ -5,6 +5,7 @@ from google.cloud import storage, bigquery
 from jinja2 import Template
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+from utils import get_image_path
 
 storage_client = storage.Client()
 bucket = storage_client.get_bucket('bucket_hm')
@@ -23,7 +24,8 @@ PASSWORD = "owjhybpyeqlmqysl"
 def generate_template(filepath: str, user: dict, products: List[dict]) -> str:
     with open(filepath, 'r', encoding='utf-8') as file:
         template = Template(file.read())
-    html_content = template.render(user=user, products=products)
+    product_images = [get_image_path(product['article_id']) for product in products]
+    html_content = template.render(user=user, products=products, product_images=product_images)
     return html_content
 
 

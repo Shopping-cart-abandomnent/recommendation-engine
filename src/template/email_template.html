@@ -15,7 +15,7 @@
     <div class="product_list" style="margin-top: 20px; border: 1px solid #ccc; border-radius: 3px;">
         {% for product in products %}
             <h1>{{ product.prod_name }}</h1>
-            <img src="{{ product.image_path }}" alt="{{ product.prod_name }}" style="height: auto; display: block; margin-top: 20px; margin-left: auto; margin-right: auto;">
+            <img src="{{ product_images[loop.index0] }}" alt="{{ product.prod_name }}" style="height: auto; display: block; margin-top: 20px; margin-left: auto; margin-right: auto;">
         {% endfor %}
     </div>
 
