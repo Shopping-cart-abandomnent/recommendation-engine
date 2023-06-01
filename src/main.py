@@ -82,6 +82,11 @@ def receive_msg(event, context):
     send_email(user, products)
 
 
+##############################################################################
+#     Uncomment the code below to test with a sample message by executing    #
+#          the main with the correct API key configuration                   #
+##############################################################################
+
 # test_msg = """
 #  {
 #      "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",

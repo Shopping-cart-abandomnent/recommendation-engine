@@ -28,7 +28,7 @@ def predict_recommendations(all_articles: DataFrame, products_in_carts: DataFram
     top_3_reco = all_articles.sort_values(by=["score"], ascending=False).head(3)
     return top_3_reco
 
-#
+
 # print("\nRecommended products :")
 # for _, product in all_articles.iterrows():
 #    print("- " + product["prod_name"])
