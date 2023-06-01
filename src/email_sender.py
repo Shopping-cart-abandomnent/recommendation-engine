@@ -21,7 +21,7 @@ PASSWORD = "owjhybpyeqlmqysl"
 
 
 def generate_template(filepath: str, user: dict, products: List[dict]) -> str:
-    with open(filepath) as file:
+    with open(filepath, 'r', encoding='utf-8') as file:
         template = Template(file.read())
     html_content = template.render(user=user, products=products)
     return html_content
