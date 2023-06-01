@@ -61,7 +61,7 @@ def receive_msg(event, context):
         "articles_id": []
     }
     """
-    received_msg_json = base64.b64decode(event['data'])
+    received_msg_json = base64.b64decode(event['data']).decode('utf-8')
     message = json.loads(received_msg_json)
     user_id = message["user_id"]
     articles_ids = message["articles_id"]
@@ -82,14 +82,14 @@ def receive_msg(event, context):
     send_email(user, products)
 
 
-test_msg = """
- {
-     "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
-     "articles_id": [620036002,351098028,685601036]
- }
- """
-sample_data = {
-    "@type": None,
-    "data": base64.b64encode(test_msg.encode('ascii'))
-}
-receive_msg(sample_data, None)
+# test_msg = """
+#  {
+#      "user_id": "bcfb8358-da22-11ed-8d56-6c94661fccae",
+#      "articles_id": [620036002,351098028,685601036]
+#  }
+#  """
+# sample_data = {
+#     "@type": None,
+#     "data": base64.b64encode(test_msg.encode('ascii'))
+# }
+# receive_msg(sample_data, None)
